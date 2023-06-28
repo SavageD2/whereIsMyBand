@@ -1,9 +1,9 @@
 package com.example.whereIsMyBand.repositories;
 
-import com.example.whereIsMyBand.profiles.Group;
+import com.example.whereIsMyBand.profiles.Band;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface BandRepository extends JpaRepository<Band, Long> {
 }
