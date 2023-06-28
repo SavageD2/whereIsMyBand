@@ -42,7 +42,7 @@ public class GroupService {
     }
 
     public Band findBandByCity(String city){
-
+        return bandRepository.findByCity(city);
     }
 
 }

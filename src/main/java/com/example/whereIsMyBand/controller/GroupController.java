@@ -17,32 +17,38 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @GetMapping("/group_list")
+    @GetMapping("/band_list")
     public ResponseEntity<List<Band>> getAllGroup() {
         List<Band> bandList = groupService.getAllGroup();
         return new ResponseEntity<>(bandList, HttpStatus.OK);
     }
 
-    @GetMapping("/group_detail/{id}")
+    @GetMapping("/band_detail/{id}")
     public ResponseEntity<Band> getGroupById(@PathVariable("id") Long id) {
         Band bandDetail = groupService.findById(id);
         return new ResponseEntity<>(bandDetail, HttpStatus.OK);
     }
 
-    @PostMapping("/group_create")
+    @PostMapping("/band_create")
     public ResponseEntity<Band> createGroup(@RequestBody Band band) {
         Band createdBand = groupService.createGroup(band);
         return new ResponseEntity<>(createdBand, HttpStatus.CREATED);
     }
 
-    @PutMapping("/group_update/{id}")
+    @PutMapping("/band_update/{id}")
     public ResponseEntity<Band> updateGroup(@PathVariable("id") Long id, @RequestBody Band band) {
         Band updatedBand = groupService.updateGroupById(id, band);
         return new ResponseEntity<>(updatedBand, HttpStatus.OK);
     }
 
-    @DeleteMapping("/group_delete/{id}")
+    @DeleteMapping("/band_delete/{id}")
     public void deleteGroup(@PathVariable("id") Long id) {
         groupService.deleteGroupById(id);
+    }
+
+    @GetMapping("/band/{city}")
+    public ResponseEntity<Band>findBandByCity(@PathVariable("city") String city) {
+        Band band = groupService.findBandByCity(city.toLowerCase());
+        return new ResponseEntity<>(band, HttpStatus.OK);
     }
 }
