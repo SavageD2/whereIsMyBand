@@ -1,5 +1,6 @@
 package com.example.whereIsMyBand.services;
 
+import com.example.whereIsMyBand.profiles.Announce;
 import com.example.whereIsMyBand.profiles.Band;
 import com.example.whereIsMyBand.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.awt.geom.IllegalPathStateException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class GroupService {
+public class BandService {
     @Autowired
     private BandRepository bandRepository;
 
@@ -44,5 +46,18 @@ public class GroupService {
     public Band findBandByCity(String city){
         return bandRepository.findByCity(city);
     }
+    public Announce createAnnounce(Long id, Announce announce){
+        Optional<Band> bandOptional = bandRepository.findById(id);
+        if(bandOptional.isPresent()) {
+            Band band = bandOptional.get();
+            announce.setBand(band);
+            band.getAnnounces().add(announce);
+            bandRepository.save(band);
+        }else {
+            throw new IllegalPathStateException("No group found with id: " + id);
+        }
+        return null;
+    }
+
 
 }
